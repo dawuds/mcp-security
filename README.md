@@ -60,9 +60,16 @@ mcp-security/
 - [Testing Methodology](docs/test/testing-methodology.md)
 - [Prompt Injection Test Cases](docs/test/prompt-injection-tests.md)
 
+### Attack Playbooks (Red Team)
+- [Prompt Injection Playbook](docs/attack-playbooks/prompt-injection.md)
+- [Tool Poisoning Playbook](docs/attack-playbooks/tool-poisoning.md)
+- [Confused Deputy Playbook](docs/attack-playbooks/confused-deputy.md)
+
 ### Standards & Controls
 - [MCP Controls Framework](docs/standards/controls-framework.md)
 - [NIST CSF / SP 800-53 Mapping](docs/standards/nist-mapping.md)
+- [SOC 2 TSC Mapping](docs/standards/soc2-mapping.md)
+- [ISO 27001 Annex A Mapping](docs/standards/iso27001-mapping.md)
 
 ---
 
@@ -87,6 +94,20 @@ mcp-security/
 | [01-minimal-mcp](samples/01-minimal-mcp/) | Minimal reference implementation | Schema validation, error handling |
 | [02-filesystem-mcp](samples/02-filesystem-mcp/) | Filesystem access | Path traversal protection, allow-lists |
 | [03-api-gateway-mcp](samples/03-api-gateway-mcp/) | External API integration | Auth, rate limiting, response sanitization |
+| [04-database-mcp](samples/04-database-mcp/) | SQL access with query allowlisting | Parameterized queries, query allowlist, read-only mode |
+| [05-oauth-mcp](samples/05-oauth-mcp/) | OAuth 2.0 token validation | Token validation, scope enforcement, expiry checking |
+| [06-multi-tenant-mcp](samples/06-multi-tenant-mcp/) | Multi-tenant data isolation | Tenant namespacing, quota enforcement, cross-tenant prevention |
+
+---
+
+## Security Scripts
+
+| Script | Description |
+|--------|-------------|
+| [scripts/mcp-scanner.py](scripts/mcp-scanner.py) | Audit an MCP server config for misconfigurations |
+| [scripts/validate-schema.py](scripts/validate-schema.py) | Validate MCP tool schemas against security best practices |
+
+Run with `python scripts/mcp-scanner.py <config.json>` or `python scripts/validate-schema.py <schema.json>`.
 
 ---
 

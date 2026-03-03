@@ -1,0 +1,33 @@
+name: Content Suggestion
+description: Suggest new content, samples, or improvements
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: "Suggestions welcome! Tell us what you'd like to see."
+  - type: input
+    id: title
+    attributes:
+      label: What would you like to add or improve?
+      placeholder: e.g. Add a sample for gRPC-based MCP server
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why is this valuable?
+      description: What security scenario or audience does this address?
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - New sample MCP server
+        - New documentation
+        - New test cases
+        - Improved existing content
+        - New tool/script
+    validations:
+      required: true

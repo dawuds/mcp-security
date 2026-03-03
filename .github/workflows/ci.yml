@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ruff
+        run: pip install ruff
+
+      - name: Run ruff check
+        run: ruff check .
+
+      - name: Run ruff format check
+        run: ruff format --check .
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install sample dependencies
+        run: |
+          pip install mcp httpx pytest
+
+      - name: Install sample requirements files
+        run: |
+          for req in samples/*/requirements.txt; do
+            pip install --no-cache-dir -r "$req"
+          done
+
+      - name: Run tests
+        run: pytest tests/ -v
+
+  check-links:
+    name: Check Links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check markdown links
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: >-
+            --accept 429
+            **/*.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

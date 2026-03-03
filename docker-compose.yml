@@ -1,0 +1,51 @@
+version: "3.9"
+
+# MCP servers use stdio transport — this compose file is for development
+# and testing purposes. In production, connect via the MCP client config.
+
+services:
+  minimal-mcp:
+    build: ./samples/01-minimal-mcp
+    stdin_open: true
+    tty: false
+
+  filesystem-mcp:
+    build: ./samples/02-filesystem-mcp
+    stdin_open: true
+    tty: false
+    volumes:
+      - ./tmp/workspace:/workspace
+    environment:
+      - MCP_WORKSPACE_DIR=/workspace
+
+  api-gateway-mcp:
+    build: ./samples/03-api-gateway-mcp
+    stdin_open: true
+    tty: false
+    environment:
+      - MCP_ALLOWED_DOMAINS=api.example.com
+      - MCP_REQUEST_TIMEOUT=10
+
+  database-mcp:
+    build: ./samples/04-database-mcp
+    stdin_open: true
+    tty: false
+    volumes:
+      - ./tmp/db:/data
+    environment:
+      - MCP_DB_PATH=/data/db.sqlite
+      - MCP_READ_ONLY=true
+
+  oauth-mcp:
+    build: ./samples/05-oauth-mcp
+    stdin_open: true
+    tty: false
+    environment:
+      - MCP_BEARER_TOKEN=token-read-only
+
+  multi-tenant-mcp:
+    build: ./samples/06-multi-tenant-mcp
+    stdin_open: true
+    tty: false
+    environment:
+      - MCP_TENANT_ID=tenant-a

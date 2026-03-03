@@ -1,0 +1,38 @@
+name: Bug Report
+description: Report a bug in a sample, script, or documentation
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for reporting! Please fill in the details below."
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: Which sample, script, or doc file is affected?
+      placeholder: e.g. samples/02-filesystem-mcp/server.py
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: false
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Low (typo, minor doc issue)
+        - Medium (incorrect guidance, non-critical bug)
+        - High (security control is wrong or misleading)
+    validations:
+      required: true
